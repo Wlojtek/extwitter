@@ -45,7 +45,7 @@ defmodule ExTwitter.OAuth do
   end
 
   def send_httpc_request(method, request, options) do
-    :httpc.request(method, request, [{:autoredirect, false}] ++ proxy_option(), options)
+    :httpc.request(method, request, [{:autoredirect, false}] ++ proxy_option() ++ ssl_option(), options)
   end
 
   defp get_signed_params(method, url, params, consumer_key, consumer_secret, access_token, access_token_secret) do
@@ -64,5 +64,9 @@ defmodule ExTwitter.OAuth do
 
   defp proxy_option do
     ExTwitter.Proxy.options
+  end
+
+   defp ssl_option do
+    ExTwitter.Ssl.options
   end
 end
